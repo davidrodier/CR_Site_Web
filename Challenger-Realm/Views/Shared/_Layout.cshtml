@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <style>
+        #Logo {
+            height: 50px;
+            padding: 10px;
+        }
+
+        #Logo:hover {
+            background-color: #000000;
+            border-radius: 25px;
+            cursor:pointer;
+        }
+        a {
+            color: #14B327 !important;
+        }
+    </style>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a id="Logo_Click" href="/Home/Index"></a>
+                <img id="Logo" src="~/Images/Logo.png" onclick="document.getElementById('Logo_Click').click()" />
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Home/Store" >Store</a></li>
+                    <li><a href="/Home/About" style="color: #14B327;">About</a></li>
+                    <li><a href="/Home/Contact" style="color: #14B327;">Contact</a></li>
+                </ul>
+                @if (Session["LogedUser"].Equals(""))
+                {
+                    <ul class="nav navbar-right navbar-nav">
+                        <li><a href="/User/Connexion" style="color: #14B327;">Login</a></li>
+                        <li><a href="/User/Join" style="color: #14B327;">Join</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-right navbar-nav">
+                        <li><a href="/User/Profil" style="color:#ffd800;">@Session["LogedUser"].ToString()</a></li>
+                        @if (Session["LogedType"].Equals("ADMIN"))
+                        {
+                            <li><a href="/User/List" style="color: #14B327;">User List</a></li>
+                        }
+                        <li><a href="/User/Disc" style="color: #14B327;">Logout</a></li>
+                    </ul>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

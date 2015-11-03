@@ -1,0 +1,57 @@
+﻿@model Challenger_Realm_Site.Models.User
+
+@{
+    ViewBag.Title = "Profil";
+}
+
+<h2>Profil</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @if (Session["LogedType"].Equals("ADMIN"))
+            {
+                <span style="color:green">
+                    @Html.DisplayFor(model => model.Type)
+                </span>
+            }
+            else
+            {
+                <span style="color:red">
+                    @Html.DisplayFor(model => model.Type)
+                </span>
+            }
+        </dd>
+
+        <dt>
+            <img src="~/Images/token.png" style="width:20px;" />
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tokens)
+        </dd>
+
+    </dl>
+</div>

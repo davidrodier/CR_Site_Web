@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Challenger_Realm_Site.Models.User>
+
+@{
+    ViewBag.Title = "List";
+}
+<style>
+    .Upgrade {
+        color: green;
+        font-weight: bold;
+    }
+
+    .Demote {
+        color: red;
+        font-weight: bold;
+    }
+
+    th {
+        width: 200px;
+        padding: 10px;
+    }
+
+    td {
+        padding: 10px;
+    }
+</style>
+<br />
+<br />
+
+@if (Session["LogedType"].Equals("ADMIN"))
+{
+    <table class="table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @if (item.Type != "ADMIN")
+                    {
+                        <a class="Upgrade" href="/User/Up?ID=@item.ID.ToString()">Upgrade</a>
+                    }
+                    else
+                    {
+                        <a class="Demote" href="/User/Demote?ID=@item.ID.ToString()">Demote</a>
+                    }
+                    <span>| </span><a class="Demote" href="/User/Del?ID=@item.ID.ToString()">Delete</a>
+                </td>
+
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <h2>Please login as an Admin</h2>
+}
+
+
